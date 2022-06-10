@@ -12,6 +12,7 @@
 </script>
 
 <script>
+  import { page } from '$app/stores';
   import Breadcrumb from '$lib/component/breadCrumb.svelte';
   import Showdown from 'showdown';
   import ShowdownToc from 'showdown-toc';
@@ -59,19 +60,29 @@
     return info;
   }
   handleParsed(toc);
-  let breadcrumbInfo = [
-    { name: 'Home', url: '/' },
-    { name: 'Blogs', url: '/Blog/' },
-    { name: 'Current Blog', url: '' },
-  ];
+
+  let breadcrumbInfo;
+  if ($page.url.search) {
+    breadcrumbInfo = [
+      { name: 'Home', url: '/' },
+      { name: 'Last Category', url: `/Blog/category-${$page.url.search.slice(1)}` },
+      { name: 'Current Blog', url: '' },
+    ];
+  } else {
+    breadcrumbInfo = [
+      { name: 'Home', url: '/' },
+      { name: 'Blogs', url: '/Blog/' },
+      { name: 'Current Blog', url: '' },
+    ];
+  }
 </script>
 
 <section>
   <Breadcrumb info={breadcrumbInfo} />
   <div class="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
-    <div class="xl:pl-[19.5rem]">
+    <div class="xl:pl-[19.5rem] overflow-hidden">
       <div
-        class="max-w-xl mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16 relative pt-8 mb-16">
+        class=" max-w-xl mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16 relative pt-8 mb-16">
         <!-- 文章头部 -->
         <header>
           <h1
@@ -88,8 +99,8 @@
             </dl>
           </div>
           <div class="mt-6">
-            <ul class="flex flex-wrap text-sm leading-6 -mt-6 -mx-5">
-              <li class="flex items-center font-medium whitespace-nowrap px-5 mt-6">
+            <ul class="flex flex-nowrap text-sm leading-6 -mt-6 -mx-5">
+              <li class="flex items-center font-medium whitespace-nowrap px-5 mt-4">
                 <img
                   src="/img/author.jpg"
                   alt=""

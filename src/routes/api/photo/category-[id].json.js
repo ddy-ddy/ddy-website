@@ -22,9 +22,9 @@ export async function get(request) {
     const id = request.params.id;
     const res = await fetch(`http://121.4.85.24:1337/api/photography-categories/${id}?populate=*`)
     const response = await res.json();
-    const categoryInfo = response["data"]["attributes"]; //当前类别的信息
+    let categoryInfo = response["data"]["attributes"]; //当前类别的信息
     categoryInfo.id = response["data"]["id"];
-    const categoryPhotographies = response["data"]["attributes"]["photographies"]["data"];//某一类的所有照片
+    let categoryPhotographies = response["data"]["attributes"]["photographies"]["data"];//某一类的所有照片
     let number = categoryPhotographies.length;
     for (let i = 0; i < number; i++) {
         await fetch(`http://121.4.85.24:1337/api/photographies/${categoryPhotographies[i].id}?populate=*`)
@@ -38,6 +38,7 @@ export async function get(request) {
                 categoryPhotographies[i].attributes = ""
             })
     }
+    categoryInfo.photographies = ""; //删除占用资源的数据
     return {
         status: 200,
         body: [categoryInfo, categoryPhotographies]
