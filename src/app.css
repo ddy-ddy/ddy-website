@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @layer base {
+  @font-face {
+    font-family: 'Chinese';
+    src: local('Chinese'), local('chinese'), url('/fonts/chinese.ttf');
+    font-size: 100px;
+  }
+} */
