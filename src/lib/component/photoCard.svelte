@@ -32,8 +32,8 @@
       <div class="relative p-2">
         <div class={imageShapeToMarginTop(photo)}>
           <div
-            class="transition-all transform translate-y-8 opacity-0  group-hover:opacity-100 group-hover:translate-y-0">
-            <p class="text-xs md:text-base text-white font-body">
+            class="opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
+            <p class="text-xs sm:text-sm text-white font-body">
               {@html photo.description}
             </p>
           </div>

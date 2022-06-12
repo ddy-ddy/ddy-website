@@ -3,8 +3,8 @@ function splitString(info) {
     if (info == null) {
         info = "...";
     }
-    if (info && info.length >= 30) {
-        info = info.slice(0, 30);
+    if (info && info.length >= 12) {
+        info = info.slice(0, 12);
         info = info + "...";
     }
     return info;

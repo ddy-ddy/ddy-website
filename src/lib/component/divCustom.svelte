@@ -20,7 +20,7 @@
   </div>
   <!-- 照片带有瀑布式的布局 -->
 {:else if withWaterfall}
-  <div class="{mt} columns-2 sm:columns-4 md:columns-5 gap-2 space-y-6 ">
+  <div class="{mt} columns-2 sm:columns-3 md:columns-5 gap-2 space-y-6">
     <slot />
   </div>
   <!-- 照片带有grid的布局 -->
