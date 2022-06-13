@@ -138,7 +138,7 @@
                   class="font-article block py-1 sm:text-sm lg:text-md font-medium hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-500"
                   href="#{info[0].anchor}">
                   <input type="checkbox" />
-                  {i + 1}. {splitString(info[0].text)}
+                  {splitString(info[0].text)}
                 </a>
               </li>
               {#if info[1].length != 0}
