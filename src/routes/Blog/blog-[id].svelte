@@ -20,10 +20,14 @@
   export let blog;
   const context = blog.context; //博客的内容
   const toc = []; //博客目录
+  Showdown.setOption('tables', true);
+  Showdown.setOption('tablesHeaderId', true);
+  Showdown.setOption('tasklists', true);
   var converter = new Showdown.Converter({ extensions: [ShowdownToc({ toc })] }),
     text = context,
     html = converter.makeHtml(text);
   let markdownNavgation = []; //博客的目录
+
   function handleParsed(event) {
     let headTokens = event; //markdown中的heading
     let flag;
@@ -120,7 +124,7 @@
         </header>
         <!-- 文章内容 -->
         <div
-          class="prose prose-slate mt-12 dark:prose-invert font-article prose-p:mb-0 prose-p:mt-0 prose-code:bg-indigo-400 prose-a:text-blue-600 hover:prose-a:text-blue-500">
+          class="prose prose-slate mt-12 dark:prose-invert font-article prose-p:mb-0 prose-p:mt-0 prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-strong:text-orange-400">
           {@html html}
         </div>
         <!-- 文章右侧目录 -->
@@ -134,7 +138,7 @@
                   class="font-article block py-1 sm:text-sm lg:text-md font-medium hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-500"
                   href="#{info[0].anchor}">
                   <input type="checkbox" />
-                  {i+1}. {splitString(info[0].text)}
+                  {i + 1}. {splitString(info[0].text)}
                 </a>
               </li>
               {#if info[1].length != 0}
