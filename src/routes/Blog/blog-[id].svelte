@@ -119,20 +119,23 @@
           </div>
         </header>
         <!-- 文章内容 -->
-        <div class="prose prose-slate mt-12 dark:prose-invert font-article">
+        <div
+          class="prose prose-slate mt-12 dark:prose-invert font-article prose-p:mb-0 prose-p:mt-0 prose-code:bg-indigo-400 prose-a:text-blue-600 hover:prose-a:text-blue-500">
           {@html html}
         </div>
         <!-- 文章右侧目录 -->
         <div
-          class="fixed z-20 top-[12.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[19.5rem] py-10 px-8 overflow-y-auto hidden xl:block">
-          <ul class="text-slate-700 text-sm leading-6">
-            {#each markdownNavgation as info}
+          class=" fixed z-20 top-[12.8125rem] bottom-4 h-96 right-[max(0px,calc(50%-45rem))] w-[19.5rem] py-10 overflow-y-auto hidden xl:block">
+          <ul class="text-slate-700 text-sm leading-6 font-body">
+            {#each markdownNavgation as info, i}
               <!--一级目录 -->
               <li>
                 <a
-                  href="#{info[0].anchor}"
                   class="font-article block py-1 sm:text-sm lg:text-md font-medium hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-500"
-                  >{splitString(info[0].text)}</a>
+                  href="#{info[0].anchor}">
+                  <input type="checkbox" />
+                  {i+1}. {splitString(info[0].text)}
+                </a>
               </li>
               {#if info[1].length != 0}
                 <!--二级目录 -->
