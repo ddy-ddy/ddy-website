@@ -2,29 +2,29 @@
   导航栏 
 -->
 <script>
-  import { navTag } from '../variables';
-  //判断是否有下拉框
+  import { navTag } from '$lib/variables';
+  //判断是否要下拉框
   let flag = ['Blog', 'Photo'];
   // 判断是否要search栏
   export let search = 'no';
   //判断是否切换深色模式
-  let isDark = false;
+  let isDark = true;
   if (typeof localStorage !== 'undefined') {
     if (
       localStorage.theme === 'dark' ||
       (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
-      isDark = true;
+      isDark = false;
     }
   }
   function toggleDarkMode() {
     if (isDark) {
       document.documentElement.classList.remove('dark');
-      localStorage.theme = 'light';
+      localStorage.theme = 'dark';
       isDark = false;
     } else {
       document.documentElement.classList.add('dark');
-      localStorage.theme = 'dark';
+      localStorage.theme = 'light';
       isDark = true;
     }
   }

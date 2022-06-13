@@ -1,3 +1,5 @@
+import { BASE_URL } from "$lib/variables";
+
 function splitString(info) {
     info = info.split("T");
     info = info[0];
@@ -5,7 +7,7 @@ function splitString(info) {
 }
 
 export async function get() {
-    let res = await fetch(`http://121.4.85.24:1337/api/projects?sort[0]=publishedAt:DESC`)
+    let res = await fetch(`${BASE_URL}/projects?sort[0]=publishedAt:DESC`)
     let response = await res.json();
     let projects = response["data"];
     projects.map((project) => {

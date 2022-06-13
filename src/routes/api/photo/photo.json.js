@@ -1,26 +1,9 @@
+import { BASE_URL } from "$lib/variables";
+import { JudgeHorizontal, splitString } from "$lib/function";
 
-function splitString(info) {
-    if (info == null) {
-        info = "...";
-    }
-    if (info && info.length >= 12) {
-        info = info.slice(0, 12);
-        info = info + "...";
-    }
-    return info;
-}
-
-function JudgeHorizontal(height, width) {
-    if (width > height) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
 
 export async function get() {
-    const res = await fetch(`http://121.4.85.24:1337/api/photographies?populate=*`);
+    const res = await fetch(`${BASE_URL}/photographies?populate=*`);
     const response = await res.json();
     const photographies = response["data"];
     photographies.map((photography) => {
@@ -33,7 +16,7 @@ export async function get() {
             photography.author = "";
         }
         photography.isHorizontal = JudgeHorizontal(photography.attributes.image.data[0].attributes.height, photography.attributes.image.data[0].attributes.width); //判断图片是否是横图
-        photography.description = splitString(photography.attributes.description); //图片简要描述
+        photography.description = splitString(photography.attributes.description, 12); //图片简要描述
     })
     return {
         status: 200,

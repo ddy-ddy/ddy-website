@@ -13,10 +13,10 @@
 </script>
 
 <script>
-  import Breadcrumb from '$lib/component/breadCrumb.svelte';
-  import PhotoCard from '$lib/component/photoCard.svelte';
-  import DivCustom from '$lib/component/divCustom.svelte';
-  import PageDescription from '$lib/component/pageDescription.svelte';
+  import Breadcrumb from '$lib/component/contentLayout/breadCrumb.svelte';
+  import PhotoCard from '$lib/component/contentLayout/photoCard.svelte';
+  import DivCustom from '$lib/component/pageLayout/divCustom.svelte';
+  import PageDescription from '$lib/component/contentLayout/pageDescription.svelte';
   export let categoryInfo;
   export let categoryPhotographies;
   let pageInfo = {

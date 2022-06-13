@@ -1,10 +1,10 @@
-import { BASE_URL, BLOG_API_RUL } from "$lib/variables";
+import { BASE_URL } from "$lib/variables";
 
 
 
 export async function get(request) {
     const id = request.params.id;
-    const res = await fetch(`http://121.4.85.24:1337/api/photographies/${id}?populate=*`);
+    const res = await fetch(`${BASE_URL}/api/photographies/${id}?populate=*`);
     const response = await res.json();
     const photography = response["data"];
     photography.shootTime = photography.attributes.shootTime;  //拍摄时间

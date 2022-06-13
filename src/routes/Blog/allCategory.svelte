@@ -11,9 +11,9 @@
 </script>
 
 <script>
-  import Breadcrumb from '$lib/component/breadCrumb.svelte';
-  import PageDescription from '$lib/component/pageDescription.svelte';
-  import CategoryId from './category-[id].svelte';
+  import Breadcrumb from '$lib/component/contentLayout/breadCrumb.svelte';
+  import TimeLinePage from '$lib/component/pageLayout/timeLinePage.svelte';
+  import ContetList from '$lib/component/contentLayout/contetList.svelte';
   let pageInfo = {
     title: 'All Categories',
     desciption: 'All the latest blog categories, build by ddy.',
@@ -27,11 +27,7 @@
 
 <section>
   <Breadcrumb info={breadcrumbInfo} />
-  <main class="max-w-[52rem] mx-auto px-4 pb-28 sm:px-6 md:px-8 xl:px-12 lg:max-w-6xl">
-    <PageDescription title={pageInfo.title} desciption={pageInfo.desciption} />
-    {#each categories as category}
-      <a class="text-lime-300" href="/Blog/category-{category.id}"><h3>{category.title}</h3></a>
-      <p>{category.description}</p>
-    {/each}
-  </main>
+  <TimeLinePage pageInfo={pageInfo}>
+    <ContetList categories={categories} />
+  </TimeLinePage>
 </section>

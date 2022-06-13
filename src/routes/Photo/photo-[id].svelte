@@ -13,7 +13,7 @@
 
 <script>
   import { page } from '$app/stores';
-  import Breadcrumb from '$lib/component/breadCrumb.svelte';
+  import Breadcrumb from '$lib/component/contentLayout/breadCrumb.svelte';
   export let photography;
   let breadcrumbInfo;
   if ($page.url.search) {

@@ -1,6 +1,4 @@
 <script context="module">
-  import Breadcrumb from '$lib/component/breadCrumb.svelte';
-
   export async function load({ fetch }) {
     let symbol = 'DOTUSDT';
     const res = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=DOTUSDT`);
@@ -14,6 +12,7 @@
 </script>
 
 <script>
+  import Breadcrumb from '$lib/component/contentLayout/breadCrumb.svelte';
   export let priceInfo;
   let dotPrice = priceInfo.price;
   let breadcrumbInfo = [

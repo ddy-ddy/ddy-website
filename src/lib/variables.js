@@ -1,9 +1,8 @@
 // 存放变量，路径等
 
-//wordpress url
-export const BASE_URL = 'http://121.4.85.24:8082/wordpress';
-//wirdoress posts url
-export const BLOG_API_RUL = '/wp-json/wp/v2/posts/';
+//strapi url
+export const BASE_URL = 'http://121.4.85.24:1337/api';
+export const BASE = 'http://121.4.85.24:1337';
 
 //主页个人信息
 export let personInformation = [
