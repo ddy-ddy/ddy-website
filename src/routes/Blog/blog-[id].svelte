@@ -14,6 +14,7 @@
 <script>
   import { page } from '$app/stores';
   import Breadcrumb from '$lib/component/contentLayout/breadCrumb.svelte';
+  import BackToTop from '$lib/component/utility/backToTop.svelte';
   import Showdown from 'showdown';
   import ShowdownToc from 'showdown-toc';
 
@@ -133,6 +134,7 @@
            prose-hr:mb-6 prose-hr:mt-6
            prose-img:rounded-md prose-img:mb-2 prose-img:mt-2">
           {@html html}
+          <BackToTop />
         </div>
         <!-- 文章右侧目录 -->
         <div
