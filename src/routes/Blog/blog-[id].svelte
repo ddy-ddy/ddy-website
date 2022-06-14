@@ -128,11 +128,10 @@
           prose-p:mb-0 prose-p:mt-0 
           prose-a:text-blue-600 hover:prose-a:text-blue-500 
           prose-strong:text-orange-400
-           prose-h4:underline prose-h4:decoration-emerald-500 prose-h4:underline-offset-2 prose-h4:decoration-wavy
-           prose-h3:underline prose-h3:decoration-orange-500 prose-h3:underline-offset-2 prose-h3:decoration-wavy
-           prose-h2:underline prose-h2:decoration-blue-500 prose-h2:underline-offset-2 prose-h2:decoration-wavy
-           prose-code:rounded-md 
-           prose-img:rounded-md prose-img:mb-1 prose-img:mt-1">
+           prose-code:rounded-md
+           prose-pre:mb-2 prose-pre:mt-2 prose-pre:max-h-32 sm:prose-pre:max-h-48
+           prose-hr:mb-6 prose-hr:mt-6
+           prose-img:rounded-md prose-img:mb-2 prose-img:mt-2">
           {@html html}
         </div>
         <!-- 文章右侧目录 -->
@@ -145,7 +144,6 @@
                 <a
                   class="font-article block py-1 sm:text-sm lg:text-md font-medium hover:text-blue-500 dark:text-slate-400 dark:hover:text-blue-500"
                   href="#{info[0].anchor}">
-                  <input type="checkbox" class=" accent-emerald-500/25" />
                   {splitString(info[0].text)}
                 </a>
               </li>
