@@ -17,7 +17,15 @@
   import BackToTop from '$lib/component/utility/backToTop.svelte';
   import Showdown from 'showdown';
   import ShowdownToc from 'showdown-toc';
+  import hljs from 'highlight.js/lib/core';
+  import shell from 'highlight.js/lib/languages/shell';
+  import javascript from 'highlight.js/lib/languages/javascript';
+  import python from 'highlight.js/lib/languages/python';
+  import bash from 'highlight.js/lib/languages/bash';
+  import codetheme from 'svelte-highlight/styles/github-dark-dimmed';
+  import { afterUpdate } from 'svelte';
 
+  // 解析strapi得到的博客内容为html
   export let blog;
   const context = blog.context; //博客的内容
   const toc = []; //博客目录
@@ -27,8 +35,9 @@
   var converter = new Showdown.Converter({ extensions: [ShowdownToc({ toc })] }),
     text = context,
     html = converter.makeHtml(text);
-  let markdownNavgation = []; //博客的目录
 
+  // 获取博客的目录
+  let markdownNavgation = []; //博客的目录
   function handleParsed(event) {
     let headTokens = event; //markdown中的heading
     let flag;
@@ -66,6 +75,21 @@
   }
   handleParsed(toc);
 
+  // 代码高亮
+  $: codetheme;
+  hljs.registerLanguage('shell', shell);
+  hljs.registerLanguage('bash', bash);
+  hljs.registerLanguage('javascript', javascript);
+  hljs.registerLanguage('python', python);
+  $: if (html) {
+    afterUpdate(() => {
+      if (document !== undefined) {
+        hljs.highlightAll();
+      }
+    });
+  }
+
+  // 面包屑导航栏
   let breadcrumbInfo;
   if ($page.url.search) {
     breadcrumbInfo = [
@@ -82,12 +106,16 @@
   }
 </script>
 
+<svelte:head>
+  {@html codetheme}
+</svelte:head>
+
 <section>
   <Breadcrumb info={breadcrumbInfo} />
-  <div class="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+  <div class="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 py-2">
     <div class="xl:pl-[19.5rem] overflow-hidden">
       <div
-        class=" max-w-xl mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16 relative pt-8 mb-16">
+        class="max-w-xl mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16 relative pt-8 mb-16">
         <!-- 文章头部 -->
         <header>
           <h1
@@ -107,16 +135,16 @@
             <ul class="flex flex-nowrap text-sm leading-6 -mt-6 -mx-5">
               <li class="flex items-center font-medium whitespace-nowrap px-5 mt-4">
                 <img
-                  src="/img/author.jpg"
+                  src={blog.authorAvatar}
                   alt=""
                   class="mr-3 w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800" />
                 <div class="text-sm leading-4">
                   <div class="text-slate-900 dark:text-slate-200 font-body">{blog.author}</div>
                   <div class="mt-1">
                     <a
-                      href="https://github.com/ddy-ddy"
+                      href={blog.authorLink}
                       class="text-sky-500 hover:text-sky-600 dark:text-sky-400 font-body"
-                      >@ddy-ddy</a>
+                      >@{blog.authorLinkName}</a>
                   </div>
                 </div>
               </li>
@@ -129,12 +157,11 @@
           prose-p:mb-0 prose-p:mt-0 
           prose-a:text-blue-600 hover:prose-a:text-blue-500 
           prose-strong:text-orange-400
-           prose-code:rounded-md
-           prose-pre:mb-2 prose-pre:mt-2 prose-pre:max-h-32 sm:prose-pre:max-h-48
+           prose-code:rounded-md  prose-code:bg-gray-300 dark:prose-code:bg-gray-700
+           prose-pre:mb-2 prose-pre:p-0 prose-pre:mt-2 prose-pre:max-h-36 sm:prose-pre:max-h-48 prose-pre:bg-inherit
            prose-hr:mb-6 prose-hr:mt-6
            prose-img:rounded-md prose-img:mb-2 prose-img:mt-2">
           {@html html}
-          <BackToTop />
         </div>
         <!-- 文章右侧目录 -->
         <div
@@ -179,4 +206,5 @@
       </div>
     </div>
   </div>
+  <BackToTop />
 </section>
