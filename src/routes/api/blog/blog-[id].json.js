@@ -11,13 +11,27 @@ export async function get(request) {
     blog.publishedTime = blog.attributes.publishedAt.split("T")[0]; //博客发布时间
     blog.author = blog.attributes.author.data.attributes.name; //博客作者
     blog.authorLink = blog.attributes.author.data.attributes.link; //博客作者联系方式
-    blog.authorLinkName = blog.attributes.author.data.attributes.linkName; //博客作者联系名词
+    blog.authorLinkName = blog.attributes.author.data.attributes.linkName; //博客作者联系名称
     blog.context = blog.attributes.context; //博客内容
 
     // 获取作者的头像
     const tempRes = await fetch(`${BASE_URL}/authors/${blog.attributes.author.data.id}?populate=*`);
     const tempResponse = await tempRes.json();
     blog.authorAvatar = BASE + tempResponse.data.attributes.avatar.data.attributes.formats.small.url;
+
+
+    // 如果有file，则获取file
+    if (blog.attributes.englishWordFile.data) {
+        let fileUrl = BASE + blog.attributes.englishWordFile.data[0].attributes.url;
+        await fetch(fileUrl)
+            .then(response => response.json())
+            .then(data => {
+                data.map((tempdata) => {
+                    tempdata.isHidden = "hidden"; //数据是否隐藏
+                })
+                blog.englishWordData = data;
+            })
+    }
     return {
         status: 200,
         body: blog,

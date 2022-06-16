@@ -5,6 +5,15 @@
   export let projects = false;
   export let blogs = false;
   export let categories = false;
+  export let searchFlag = false;
+  function handleBlogTheme(content) {
+    let addFlag = searchFlag ? '?1' : '';
+    if (content.blogTheme === 'blog') {
+      return `/Blog/blog-${content.id}${addFlag}`;
+    } else if (content.blogTheme === 'englishWord') {
+      return `/Blog/englishWord-${content.id}${addFlag}`;
+    }
+  }
 </script>
 
 <!-- Project page -->
@@ -108,7 +117,7 @@
           </dd>
         </dl>
       </div>
-      <a class="flex items-center text-sm text-sky-500 font-medium" href={`/Blog/blog-${blog.id}`}
+      <a class="flex items-center text-sm text-sky-500 font-medium" href={handleBlogTheme(blog)}
         ><span class="relative"><p class="font-body">Read more</p></span><svg
           class="relative mt-px overflow-visible ml-2.5 text-sky-300 dark:text-sky-700"
           width="3"

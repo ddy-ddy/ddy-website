@@ -18,6 +18,7 @@ export async function get(request) {
                 categoryBlogs[i].title = data.attributes.title; //博客名
                 categoryBlogs[i].description = data.attributes.description; //博客简要描述
                 categoryBlogs[i].publishedTime = data.attributes.publishedAt.split("T")[0]; //博客发布时间
+                categoryBlogs[i].blogTheme = data.attributes.blogTheme; //博客主题
                 categoryBlogs[i].attributes = "";
             })
     }

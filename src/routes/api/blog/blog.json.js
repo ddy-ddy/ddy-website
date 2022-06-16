@@ -9,6 +9,7 @@ export async function get() {
         blog.description = blog.attributes.description; //博客简要描述
         blog.readTime = blog.attributes.readTime; //博客预计阅读时间
         blog.publishedTime = blog.attributes.publishedAt.split("T")[0]; //博客发布时间
+        blog.blogTheme = blog.attributes.blogTheme; //博客主题
         blog.attributes = "";
     })
     return {
