@@ -122,6 +122,8 @@
                     type="checkbox"
                     class="ml-2"
                     on:click={handleHidden(data.isHidden, i)} /></span>
+                <span class="ml-2 text-xs font-article font-thin text-gray-400 {data.isHidden}"
+                  >已掌握</span>
               </h3>
               <hr />
               <div class={data.isHidden}>
