@@ -46,6 +46,7 @@
 
   //控制是否隐藏
   $: allFinishedNumber = 0;
+  let englishWordDataNumber = blog.englishWordData.length;
   function handleHidden(flag, i) {
     if (flag === 'hidden') {
       blog.englishWordData[i].isHidden = '';
@@ -141,28 +142,26 @@
                 </label>
                 {#if data.isHidden != 'hidden'}
                   <span transition:fade class="ml-2 text-xs font-article font-thin text-gray-400 "
-                    >已掌握</span>
+                    >已掌握 {allFinishedNumber}/{englishWordDataNumber}</span>
                 {/if}
               </h3>
               <hr />
               {#if data.isHidden != 'hidden'}
-                <div transition:fade>
-                  <!-- headTrans -->
-                  {#each data.headTrans as headTran}
-                    <p><strong>{headTran.pos}</strong>. {headTran.trans}</p>
-                  {/each}
-                  <!-- example -->
-                  {#if data.example.length > 0}
-                    <pre>{#each data.example as example}<code
-                          >{example.sentence}<br />{example.trans}<br /></code
-                        >{/each}</pre>
-                  {/if}
-                  {#if data.phrase.length > 0}
-                    <!-- phrase -->
-                    <pre>{#each data.phrase as phrase}<code>{phrase.name} {phrase.trans}<br /></code
-                        >{/each}</pre>
-                  {/if}
-                </div>
+                <!-- headTrans -->
+                {#each data.headTrans as headTran}
+                  <p><strong>{headTran.pos}</strong>. {headTran.trans}</p>
+                {/each}
+                <!-- example -->
+                {#if data.example.length > 0}
+                  <pre>{#each data.example as example}<code
+                        >{example.sentence}<br />{example.trans}<br /></code
+                      >{/each}</pre>
+                {/if}
+                {#if data.phrase.length > 0}
+                  <!-- phrase -->
+                  <pre>{#each data.phrase as phrase}<code>{phrase.name} {phrase.trans}<br /></code
+                      >{/each}</pre>
+                {/if}
               {/if}
             {/each}
           </div>
@@ -170,7 +169,7 @@
         <!-- 学完后的打卡 -->
         <div
           class="p-4 mt-4 sm:mr-4 font-body bg-gray-300 dark:bg-gray-800 rounded-xl dark:text-white">
-          {#if allFinishedNumber == blog.englishWordData.length}
+          {#if allFinishedNumber == englishWordDataNumber}
             <p class="text-md mb-2 font-bold">今日英语单词打卡已完成👍</p>
             <p class="text-sm mb-2 font-thin underline underline-offset-2 decoration-yellow-400">
               打卡时间：{getDate()}
@@ -184,7 +183,7 @@
           {:else}
             <p class="text-center">
               还有<span class="font-body text-red-500 font-bold "
-                >{blog.englishWordData.length - allFinishedNumber}</span
+                >{englishWordDataNumber - allFinishedNumber}</span
               >个单词未掌握，快去学习吧！🏋️‍♀️
             </p>
           {/if}
