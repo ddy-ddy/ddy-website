@@ -24,6 +24,7 @@
   Showdown.setOption('tables', true);
   Showdown.setOption('tablesHeaderId', true);
   Showdown.setOption('tasklists', true);
+  var synthesis = window.speechSynthesis; //web speech api
   var converter = new Showdown.Converter(),
     text = context,
     html = converter.makeHtml(text);
@@ -47,7 +48,8 @@
   //控制是否隐藏
   $: allFinishedNumber = 0;
   let englishWordDataNumber = blog.englishWordData.length;
-  function handleHidden(flag, i) {
+  function handleHidden(word, flag, i) {
+    synthesis.speak(new SpeechSynthesisUtterance(word));
     if (flag === 'hidden') {
       blog.englishWordData[i].isHidden = '';
       allFinishedNumber += 1;
@@ -55,6 +57,11 @@
       blog.englishWordData[i].isHidden = 'hidden';
       allFinishedNumber -= 1;
     }
+  }
+
+  //控制声音
+  function handleSpeak(word) {
+    synthesis.speak(new SpeechSynthesisUtterance(word));
   }
 
   //获取当前时间
@@ -138,15 +145,40 @@
               <h3>
                 {data.headWord}
                 <label>
-                  <input type="checkbox" class="ml-2" on:click={handleHidden(data.isHidden, i)} />
+                  <input
+                    type="checkbox"
+                    class="ml-2"
+                    on:click={handleHidden(data.headWord, data.isHidden, i)} />
                 </label>
                 {#if data.isHidden != 'hidden'}
-                  <span transition:fade class="ml-2 text-xs font-article font-thin text-gray-400 "
+                  <span transition:fade class="ml-2 text-xs font-article font-thin text-gray-400"
                     >已掌握 {allFinishedNumber}/{englishWordDataNumber}</span>
                 {/if}
               </h3>
               <hr />
               {#if data.isHidden != 'hidden'}
+                <!-- speak -->
+                <div class="flex mb-1 place-items-center">
+                  <svg
+                    t="1655481586518"
+                    on:click={handleSpeak(data.headWord)}
+                    class=" fill-gray-400 hover:fill-orange-500 mr-2"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="3202"
+                    width="20"
+                    height="20"
+                    ><path
+                      d="M640 181.333333c0-46.037333-54.357333-70.4-88.746667-39.850666L359.552 311.850667a32 32 0 0 1-21.248 8.106666H181.333333A96 96 0 0 0 85.333333 415.957333v191.872a96 96 0 0 0 96 96h157.013334a32 32 0 0 1 21.248 8.106667l191.616 170.410667c34.389333 30.549333 88.789333 6.144 88.789333-39.850667V181.333333zM402.133333 359.68L576 205.098667v613.632l-173.866667-154.624a96 96 0 0 0-63.786666-24.277334H181.333333a32 32 0 0 1-32-32V416a32 32 0 0 1 32-32h157.013334a96 96 0 0 0 63.786666-24.277333z"
+                      p-id="3203" /><path
+                      d="M810.325333 251.605333a32 32 0 0 1 44.757334 6.698667A424.917333 424.917333 0 0 1 938.666667 512a424.96 424.96 0 0 1-83.626667 253.696 32 32 0 0 1-51.413333-38.058667A360.917333 360.917333 0 0 0 874.666667 512a360.917333 360.917333 0 0 0-71.04-215.637333 32 32 0 0 1 6.698666-44.757334z"
+                      p-id="3204" /><path
+                      d="M731.434667 357.12a32 32 0 0 1 43.392 12.885333c22.869333 42.24 35.84 90.666667 35.84 141.994667a297.514667 297.514667 0 0 1-35.84 141.994667 32 32 0 0 1-56.32-30.464c17.92-33.152 28.16-71.082667 28.16-111.530667s-10.24-78.378667-28.16-111.530667a32 32 0 0 1 12.928-43.392z"
+                      p-id="3205" /></svg>
+                  <span class="not-prose text-sm font-article font-thin text-gray-500"
+                    >|pærəɡræf|</span>
+                </div>
                 <!-- headTrans -->
                 {#each data.headTrans as headTran}
                   <p><strong>{headTran.pos}</strong>. {headTran.trans}</p>
