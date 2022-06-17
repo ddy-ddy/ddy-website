@@ -16,13 +16,12 @@
   import Breadcrumb from '$lib/component/contentLayout/breadCrumb.svelte';
   import BackToTop from '$lib/component/utility/backToTop.svelte';
   import Showdown from 'showdown';
-  import { dataset_dev } from 'svelte/internal';
-
+  import { dataset_dev, transition_in } from 'svelte/internal';
+  import { fade } from 'svelte/transition';
   export let blog;
 
   // 解析strapi得到的博客内容为html
   const context = blog.context; //博客的内容
-  const toc = []; //博客目录
   Showdown.setOption('tables', true);
   Showdown.setOption('tablesHeaderId', true);
   Showdown.setOption('tasklists', true);
@@ -117,32 +116,34 @@
               <!-- headWord -->
               <h3>
                 {data.headWord}
-                <span
-                  ><input
-                    type="checkbox"
-                    class="ml-2"
-                    on:click={handleHidden(data.isHidden, i)} /></span>
-                <span class="ml-2 text-xs font-article font-thin text-gray-400 {data.isHidden}"
-                  >已掌握</span>
+                <label>
+                  <input type="checkbox" class="ml-2" on:click={handleHidden(data.isHidden, i)} />
+                </label>
+                {#if data.isHidden != 'hidden'}
+                  <span transition:fade class="ml-2 text-xs font-article font-thin text-gray-400 "
+                    >已掌握</span>
+                {/if}
               </h3>
               <hr />
-              <div class={data.isHidden}>
-                <!-- headTrans -->
-                {#each data.headTrans as headTran}
-                  <p><strong>{headTran.pos}</strong>. {headTran.trans}</p>
-                {/each}
-                <!-- example -->
-                {#if data.example}
-                  <pre>{#each data.example as example}<code
-                        >{example.sentence}<br />{example.trans}<br /></code
-                      >{/each}</pre>
-                {/if}
-                {#if dataset_dev.phrase}
-                  <!-- phrase -->
-                  <pre>{#each data.phrase as phrase}<code>{phrase.name} {phrase.trans}<br /></code
-                      >{/each}</pre>
-                {/if}
-              </div>
+              {#if data.isHidden != 'hidden'}
+                <div transition:fade>
+                  <!-- headTrans -->
+                  {#each data.headTrans as headTran}
+                    <p><strong>{headTran.pos}</strong>. {headTran.trans}</p>
+                  {/each}
+                  <!-- example -->
+                  {#if data.example.length>0}
+                    <pre>{#each data.example as example}<code
+                          >{example.sentence}<br />{example.trans}<br /></code
+                        >{/each}</pre>
+                  {/if}
+                  {#if data.phrase.length>0}
+                    <!-- phrase -->
+                    <pre>{#each data.phrase as phrase}<code>{phrase.name} {phrase.trans}<br /></code
+                        >{/each}</pre>
+                  {/if}
+                </div>
+              {/if}
             {/each}
           </div>
         </div>
