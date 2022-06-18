@@ -86,9 +86,8 @@
 <section>
   <Breadcrumb info={breadcrumbInfo} />
   <div class="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 py-2">
-    <div class="xl:pl-[19.5rem] overflow-hidden">
-      <div
-        class="max-w-xl mx-auto xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16 relative pt-8 mb-16">
+    <div class="xl:pl-[22.5rem] overflow-hidden">
+      <div class="max-w-xl mx-auto xl:max-w-none  relative pt-8 mb-16">
         <!-- 文章头部 -->
         <header>
           <h1
@@ -131,7 +130,7 @@
           prose-a:text-blue-600 hover:prose-a:text-blue-500 
           prose-strong:text-orange-400
            prose-code:rounded-md  
-           prose-pre:mb-2  prose-pre:mt-2 prose-pre:max-h-40 sm:prose-pre:max-h-48 dark:prose-pre:bg-gray-700 
+           prose-pre:mb-2  prose-pre:mt-2 prose-pre:max-h-40 sm:prose-pre:max-h-48 dark:prose-pre:bg-gray-900 prose-pre:bg-gray-600 prose-pre:shadow-xl
            prose-hr:mb-2
            prose-headings:text-slate-900 prose-headings:dark:text-slate-200 prose-headings:mb-2
            prose-p:text-slate-900 prose-p:dark:text-slate-200
@@ -143,86 +142,88 @@
           <!-- 数据里面的内容 -->
           <div>
             {#each blog.englishWordData as data, i}
-              <!-- headWord -->
-              <div class="flex mt-2 place-items-center">
-                <p
-                  class="not-prose underline underline-offset-4 decoration-indigo-300 text-lg font-bold">
-                  {data.headWord}
-                </p>
-                <span class="ml-2">
-                  <input
-                    type="checkbox"
-                    on:click={handleHidden(data.headWord, data.isHidden, i)} />
-                </span>
+              <div class="bg-slate-100 dark:bg-slate-700 rounded-xl p-2 mb-6 shadow-md shadow-gray-300 dark:shadow-gray-800">
+                <!-- headWord -->
+                <div class="flex mt-2 place-items-center mb-4 ml-2">
+                  <p
+                    class="not-prose underline underline-offset-4 decoration-indigo-300 text-lg font-bold">
+                    {data.headWord}
+                  </p>
+                  <span class="ml-2">
+                    <input
+                      type="checkbox"
+                      on:click={handleHidden(data.headWord, data.isHidden, i)} />
+                  </span>
+                  {#if data.isHidden != 'hidden'}
+                    <span transition:fade class="ml-2 text-xs font-article font-thin text-gray-400"
+                      >已掌握 {allFinishedNumber}/{englishWordDataNumber}</span>
+                  {/if}
+                </div>
+
                 {#if data.isHidden != 'hidden'}
-                  <span transition:fade class="ml-2 text-xs font-article font-thin text-gray-400"
-                    >已掌握 {allFinishedNumber}/{englishWordDataNumber}</span>
+                  <!-- speak -->
+                  <div class="flex mb-1 place-items-center ml-2">
+                    <svg
+                      t="1655481586518"
+                      on:click={handleSpeak(data.headWord)}
+                      class=" fill-gray-400 hover:fill-orange-500 mr-2"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="3202"
+                      width="20"
+                      height="20"
+                      ><path
+                        d="M640 181.333333c0-46.037333-54.357333-70.4-88.746667-39.850666L359.552 311.850667a32 32 0 0 1-21.248 8.106666H181.333333A96 96 0 0 0 85.333333 415.957333v191.872a96 96 0 0 0 96 96h157.013334a32 32 0 0 1 21.248 8.106667l191.616 170.410667c34.389333 30.549333 88.789333 6.144 88.789333-39.850667V181.333333zM402.133333 359.68L576 205.098667v613.632l-173.866667-154.624a96 96 0 0 0-63.786666-24.277334H181.333333a32 32 0 0 1-32-32V416a32 32 0 0 1 32-32h157.013334a96 96 0 0 0 63.786666-24.277333z"
+                        p-id="3203" /><path
+                        d="M810.325333 251.605333a32 32 0 0 1 44.757334 6.698667A424.917333 424.917333 0 0 1 938.666667 512a424.96 424.96 0 0 1-83.626667 253.696 32 32 0 0 1-51.413333-38.058667A360.917333 360.917333 0 0 0 874.666667 512a360.917333 360.917333 0 0 0-71.04-215.637333 32 32 0 0 1 6.698666-44.757334z"
+                        p-id="3204" /><path
+                        d="M731.434667 357.12a32 32 0 0 1 43.392 12.885333c22.869333 42.24 35.84 90.666667 35.84 141.994667a297.514667 297.514667 0 0 1-35.84 141.994667 32 32 0 0 1-56.32-30.464c17.92-33.152 28.16-71.082667 28.16-111.530667s-10.24-78.378667-28.16-111.530667a32 32 0 0 1 12.928-43.392z"
+                        p-id="3205" /></svg>
+                    <!-- 音标 -->
+                    <span class="not-prose text-sm font-article font-thin text-gray-500" />
+                  </div>
+                  <!-- headTrans -->
+                  {#each data.headTrans as headTran}
+                    <p class="ml-2"><strong>{headTran.pos}</strong>. {headTran.trans}</p>
+                  {/each}
+                  <!-- example -->
+                  {#if data.example.length > 0}
+                    <pre>{#each data.example as example}<code
+                          >{example.sentence}<br />{example.trans}<br /></code
+                        >{/each}</pre>
+                  {/if}
+                  {#if data.phrase.length > 0}
+                    <!-- phrase -->
+                    <pre>{#each data.phrase as phrase}<code>{phrase.name} {phrase.trans}<br /></code
+                        >{/each}</pre>
+                  {/if}
                 {/if}
               </div>
-
-              {#if data.isHidden != 'hidden'}
-                <!-- speak -->
-                <div class="flex mb-1 place-items-center">
-                  <svg
-                    t="1655481586518"
-                    on:click={handleSpeak(data.headWord)}
-                    class=" fill-gray-400 hover:fill-orange-500 mr-2"
-                    viewBox="0 0 1024 1024"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    p-id="3202"
-                    width="20"
-                    height="20"
-                    ><path
-                      d="M640 181.333333c0-46.037333-54.357333-70.4-88.746667-39.850666L359.552 311.850667a32 32 0 0 1-21.248 8.106666H181.333333A96 96 0 0 0 85.333333 415.957333v191.872a96 96 0 0 0 96 96h157.013334a32 32 0 0 1 21.248 8.106667l191.616 170.410667c34.389333 30.549333 88.789333 6.144 88.789333-39.850667V181.333333zM402.133333 359.68L576 205.098667v613.632l-173.866667-154.624a96 96 0 0 0-63.786666-24.277334H181.333333a32 32 0 0 1-32-32V416a32 32 0 0 1 32-32h157.013334a96 96 0 0 0 63.786666-24.277333z"
-                      p-id="3203" /><path
-                      d="M810.325333 251.605333a32 32 0 0 1 44.757334 6.698667A424.917333 424.917333 0 0 1 938.666667 512a424.96 424.96 0 0 1-83.626667 253.696 32 32 0 0 1-51.413333-38.058667A360.917333 360.917333 0 0 0 874.666667 512a360.917333 360.917333 0 0 0-71.04-215.637333 32 32 0 0 1 6.698666-44.757334z"
-                      p-id="3204" /><path
-                      d="M731.434667 357.12a32 32 0 0 1 43.392 12.885333c22.869333 42.24 35.84 90.666667 35.84 141.994667a297.514667 297.514667 0 0 1-35.84 141.994667 32 32 0 0 1-56.32-30.464c17.92-33.152 28.16-71.082667 28.16-111.530667s-10.24-78.378667-28.16-111.530667a32 32 0 0 1 12.928-43.392z"
-                      p-id="3205" /></svg>
-                  <!-- 音标 -->
-                  <span class="not-prose text-sm font-article font-thin text-gray-500" />
-                </div>
-                <!-- headTrans -->
-                {#each data.headTrans as headTran}
-                  <p><strong>{headTran.pos}</strong>. {headTran.trans}</p>
-                {/each}
-                <!-- example -->
-                {#if data.example.length > 0}
-                  <pre>{#each data.example as example}<code
-                        >{example.sentence}<br />{example.trans}<br /></code
-                      >{/each}</pre>
-                {/if}
-                {#if data.phrase.length > 0}
-                  <!-- phrase -->
-                  <pre>{#each data.phrase as phrase}<code>{phrase.name} {phrase.trans}<br /></code
-                      >{/each}</pre>
-                {/if}
-              {/if}
             {/each}
           </div>
-        </div>
-        <!-- 学完后的打卡 -->
-        <div
-          class="p-4 mt-4 sm:mr-4 font-body bg-gray-300 dark:bg-gray-800 rounded-xl dark:text-white">
-          {#if allFinishedNumber == englishWordDataNumber}
-            <p class="text-md mb-2 font-bold">今日英语单词打卡已完成👍</p>
-            <p class="text-sm mb-2 font-thin underline underline-offset-2 decoration-yellow-400">
-              打卡时间：{getDate()}
-            </p>
-            <p class="text-sm mb-2 font-thin underline underline-offset-2 decoration-orange-400">
-              打卡人：{blog.author}
-            </p>
-            <p class="text-sm font-thin underline underline-offset-2 decoration-green-400">
-              掌握单词：{allFinishedNumber}
-            </p>
-          {:else}
-            <p class="text-center">
-              还有<span class="font-body text-red-500 font-bold "
-                >{englishWordDataNumber - allFinishedNumber}</span
-              >个单词未掌握，快去学习吧！🏋️‍♀️
-            </p>
-          {/if}
+          <!-- 学完后的打卡 -->
+          <div
+            class="not-prose p-4 mt-4 sm:mr-4 font-body bg-gray-300 dark:bg-gray-800 rounded-xl dark:text-white">
+            {#if allFinishedNumber == englishWordDataNumber}
+              <p class="text-md mb-2 font-bold">今日英语单词打卡已完成👍</p>
+              <p class="text-sm mb-2 font-thin underline underline-offset-2 decoration-yellow-400">
+                打卡时间：{getDate()}
+              </p>
+              <p class="text-sm mb-2 font-thin underline underline-offset-2 decoration-orange-400">
+                打卡人：{blog.author}
+              </p>
+              <p class="text-sm font-thin underline underline-offset-2 decoration-green-400">
+                掌握单词：{allFinishedNumber}
+              </p>
+            {:else}
+              <p class="text-center">
+                还有<span class="font-body text-red-500 font-bold "
+                  >{englishWordDataNumber - allFinishedNumber}</span
+                >个单词未掌握，快去学习吧！🏋️‍♀️
+              </p>
+            {/if}
+          </div>
         </div>
       </div>
     </div>
