@@ -137,8 +137,22 @@
            prose-img:rounded-md prose-img:mb-2 prose-img:mt-2">
           <!-- 自己写的内容 -->
           <div>{@html html}</div>
-          <h3>需掌握词汇{englishWordDataNumber}个</h3>
+          <h3 class="text-center">涉及词汇({englishWordDataNumber})</h3>
           <hr />
+          <div class="flex place-content-center gap-4 mb-4">
+            <button
+              class="btn btn-xs sm:btn-sm bg-orange-300 hover:bg-orange-500 font-article border-none"
+              ><p>reset</p></button>
+            <button
+              class="btn btn-xs sm:btn-sm bg-green-300 hover:bg-green-500 font-article border-none"
+              ><p>easy</p></button>
+            <button
+              class="btn btn-xs sm:btn-sm bg-sky-300  hover:bg-sky-500 font-article border-none"
+              ><p>medium</p></button>
+            <button
+              class="btn btn-xs sm:btn-sm bg-indigo-300  hover:bg-indigo-500 font-article border-none"
+              ><p>difficult</p></button>
+          </div>
           <!-- 数据里面的内容 -->
           <div>
             {#each blog.englishWordData as data, i}
@@ -201,13 +215,12 @@
                   <!-- button -->
                   <div class="flex place-content-center gap-4">
                     <button
-                      class="btn btn-xs bg-green-300 dark:bg-green-400  hover:bg-green-500 font-article border-none"
+                      class="btn btn-xs bg-green-300 hover:bg-green-500 font-article border-none"
                       ><p>easy</p></button>
-                    <button
-                      class="btn btn-xs bg-sky-300 dark:bg-sky-400 hover:bg-sky-500 font-article border-none"
+                    <button class="btn btn-xs bg-sky-300  hover:bg-sky-500 font-article border-none"
                       ><p>medium</p></button>
                     <button
-                      class="btn btn-xs bg-indigo-300 dark:bg-indigo-400 hover:bg-indigo-500 font-article border-none"
+                      class="btn btn-xs bg-indigo-300  hover:bg-indigo-500 font-article border-none"
                       ><p>difficult</p></button>
                   </div>
                 {/if}
