@@ -142,20 +142,20 @@
           <!-- 数据里面的内容 -->
           <div>
             {#each blog.englishWordData as data, i}
-              <div class="bg-slate-100 dark:bg-slate-700 rounded-xl p-2 mb-6 shadow-md shadow-gray-300 dark:shadow-gray-800">
+              <div
+                class="bg-slate-100 dark:bg-slate-700 rounded-xl p-2 mb-6 shadow-md shadow-gray-300 dark:shadow-gray-800">
                 <!-- headWord -->
-                <div class="flex mt-2 place-items-center mb-4 ml-2">
+                <div class="flex mt-2 place-items-end mb-4 ml-2 gap-3">
                   <p
                     class="not-prose underline underline-offset-4 decoration-indigo-300 text-lg font-bold">
                     {data.headWord}
                   </p>
-                  <span class="ml-2">
-                    <input
-                      type="checkbox"
-                      on:click={handleHidden(data.headWord, data.isHidden, i)} />
-                  </span>
+                  <input
+                    type="checkbox"
+                    on:click={handleHidden(data.headWord, data.isHidden, i)}
+                    class="mb-1 w-4 h-4" />
                   {#if data.isHidden != 'hidden'}
-                    <span transition:fade class="ml-2 text-xs font-article font-thin text-gray-400"
+                    <span transition:fade class="mb-1 text-xs font-article font-thin text-gray-400"
                       >已掌握 {allFinishedNumber}/{englishWordDataNumber}</span>
                   {/if}
                 </div>
@@ -198,6 +198,18 @@
                     <pre>{#each data.phrase as phrase}<code>{phrase.name} {phrase.trans}<br /></code
                         >{/each}</pre>
                   {/if}
+                  <!-- button -->
+                  <div class="flex place-content-center gap-4">
+                    <button
+                      class="btn btn-xs bg-green-300 dark:bg-green-400  hover:bg-green-500 font-article border-none"
+                      ><p>easy</p></button>
+                    <button
+                      class="btn btn-xs bg-sky-300 dark:bg-sky-400 hover:bg-sky-500 font-article border-none"
+                      ><p>medium</p></button>
+                    <button
+                      class="btn btn-xs bg-indigo-300 dark:bg-indigo-400 hover:bg-indigo-500 font-article border-none"
+                      ><p>difficult</p></button>
+                  </div>
                 {/if}
               </div>
             {/each}
