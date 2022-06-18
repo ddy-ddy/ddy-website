@@ -26,9 +26,6 @@ export async function get(request) {
         await fetch(fileUrl)
             .then(response => response.json())
             .then(data => {
-                data.map((tempdata) => {
-                    tempdata.isHidden = "hidden"; //数据是否隐藏
-                })
                 blog.englishWordData = data;
             })
     }
