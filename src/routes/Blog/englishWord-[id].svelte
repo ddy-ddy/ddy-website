@@ -131,31 +131,35 @@
           prose-a:text-blue-600 hover:prose-a:text-blue-500 
           prose-strong:text-orange-400
            prose-code:rounded-md  
-           prose-pre:mb-2  prose-pre:mt-2 prose-pre:max-h-36 sm:prose-pre:max-h-48 
+           prose-pre:mb-2  prose-pre:mt-2 prose-pre:max-h-40 sm:prose-pre:max-h-48 dark:prose-pre:bg-gray-700 
            prose-hr:mb-2
-           prose-headings:text-slate-900 prose-headings:dark:text-slate-200 prose-headings:mb-1
+           prose-headings:text-slate-900 prose-headings:dark:text-slate-200 prose-headings:mb-2
            prose-p:text-slate-900 prose-p:dark:text-slate-200
            prose-img:rounded-md prose-img:mb-2 prose-img:mt-2">
           <!-- 自己写的内容 -->
           <div>{@html html}</div>
+          <h3>需掌握词汇{englishWordDataNumber}个</h3>
+          <hr />
           <!-- 数据里面的内容 -->
           <div>
             {#each blog.englishWordData as data, i}
               <!-- headWord -->
-              <h3>
-                {data.headWord}
-                <label>
+              <div class="flex mt-2 place-items-center">
+                <p
+                  class="not-prose underline underline-offset-4 decoration-indigo-300 text-lg font-bold">
+                  {data.headWord}
+                </p>
+                <span class="ml-2">
                   <input
                     type="checkbox"
-                    class="ml-2"
                     on:click={handleHidden(data.headWord, data.isHidden, i)} />
-                </label>
+                </span>
                 {#if data.isHidden != 'hidden'}
                   <span transition:fade class="ml-2 text-xs font-article font-thin text-gray-400"
                     >已掌握 {allFinishedNumber}/{englishWordDataNumber}</span>
                 {/if}
-              </h3>
-              <hr />
+              </div>
+
               {#if data.isHidden != 'hidden'}
                 <!-- speak -->
                 <div class="flex mb-1 place-items-center">
@@ -176,8 +180,8 @@
                       p-id="3204" /><path
                       d="M731.434667 357.12a32 32 0 0 1 43.392 12.885333c22.869333 42.24 35.84 90.666667 35.84 141.994667a297.514667 297.514667 0 0 1-35.84 141.994667 32 32 0 0 1-56.32-30.464c17.92-33.152 28.16-71.082667 28.16-111.530667s-10.24-78.378667-28.16-111.530667a32 32 0 0 1 12.928-43.392z"
                       p-id="3205" /></svg>
-                  <span class="not-prose text-sm font-article font-thin text-gray-500"
-                    >|pærəɡræf|</span>
+                  <!-- 音标 -->
+                  <span class="not-prose text-sm font-article font-thin text-gray-500" />
                 </div>
                 <!-- headTrans -->
                 {#each data.headTrans as headTran}
