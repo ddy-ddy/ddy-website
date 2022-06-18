@@ -151,7 +151,7 @@
       <div class="relative">
         <h3
           class="text-base underline underline-offset-4 decoration-indigo-500 font-display font-semibold tracking-tight text-slate-900 dark:text-slate-200 pt-8 lg:pt-0">
-          {category.title}
+          {category.title} ({category.blogNumber})
         </h3>
         <div
           class="mt-2 mb-4 prose prose-slate prose-a:relative prose-a:z-10 dark:prose-dark line-clamp-2 dark:text-slate-400">
@@ -159,17 +159,11 @@
             {category.description}
           </p>
         </div>
-        <dl class="absolute left-0 top-0 lg:left-auto lg:right-full lg:mr-[calc(6.5rem+1px)]">
-          <dt class="sr-only">Length</dt>
-          <dd class="whitespace-nowrap text-sm leading-6 dark:text-slate-400">
-            <p class="font-body font-blod text-indigo-500">blog number: {category.blogNumber}</p>
-          </dd>
-        </dl>
       </div>
       <a
         class="flex items-center text-sm text-sky-500 font-medium"
         href="/Blog/category-{category.id}"
-        ><span class="relative"><p class="font-body">Read more</p></span><svg
+        ><span class="relative"><p class="font-body">查看相关博客</p></span><svg
           class="relative mt-px overflow-visible ml-2.5 text-sky-300 dark:text-sky-700"
           width="3"
           height="6"
