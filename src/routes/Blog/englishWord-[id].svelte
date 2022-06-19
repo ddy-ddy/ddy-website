@@ -248,7 +248,6 @@
           {#if levelFlag != -1}
             {#each nowData as data, i}
               <div
-                out:fade
                 class="bg-slate-100 dark:bg-slate-700 rounded-xl p-2 mb-6 shadow-md shadow-gray-300 dark:shadow-gray-800">
                 <!-- headWord -->
                 <div class="flex mt-2 place-items-end mb-4 ml-2 gap-3">
