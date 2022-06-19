@@ -152,11 +152,12 @@
     tempData.show = true; //修改数据的show信息
     //添加到改变的级别数据中
     let newData = tempData;
-    levelWordData[changeLevel]=[...levelWordData[changeLevel],levelWordData[changeLevel].push(newData)]
+    levelWordData[changeLevel].push(newData);
     useWordNumber = nowData.length - 1;
     //移除当前级别数据
     levelWordData[levelFlag].splice(dataIndex, 1);
     nowData = levelWordData[levelFlag];
+    levelWordData = levelWordData;
   }
 </script>
 
