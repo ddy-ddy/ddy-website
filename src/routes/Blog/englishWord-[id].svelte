@@ -6,18 +6,21 @@
     return {
       props: {
         blog,
+        englishWordData: blog.attributes.englishWord.data.attributes.englishWordData,
       },
     };
   }
 </script>
 
 <script>
+  import { BASE_URL } from '$lib/variables.js';
   import { page } from '$app/stores';
   import Breadcrumb from '$lib/component/contentLayout/breadCrumb.svelte';
   import BackToTop from '$lib/component/utility/backToTop.svelte';
   import Showdown from 'showdown';
   import { fade } from 'svelte/transition';
   export let blog;
+  export let englishWordData;
 
   // 解析strapi得到的博客内容为html
   const context = blog.context; //博客的内容
@@ -69,7 +72,7 @@
 
   //控制是否隐藏
   let allFinishedNumber = 0;
-  let englishWordDataNumber = blog.englishWordData.length;
+  let englishWordDataNumber = englishWordData.length;
   function handleHidden(word, show, tempData) {
     synthesis.speak(new SpeechSynthesisUtterance(word));
     if (show == 0) {
@@ -83,21 +86,26 @@
 
   // 将原始数据按照级别进行划分
   let levelWordData = Array.from(Array(4), () => new Array());
-  blog.englishWordData.map((item) => {
+  englishWordData.map((item) => {
     switch (item.level) {
       case 0:
+        item.show ? (allFinishedNumber += 1) : 1;
         levelWordData[0].push(item);
         break;
       case 1:
+        item.show ? (allFinishedNumber += 1) : 1;
         levelWordData[1].push(item);
         break;
       case 2:
+        item.show ? (allFinishedNumber += 1) : 1;
         levelWordData[2].push(item);
         break;
       case 3:
+        item.show ? (allFinishedNumber += 1) : 1;
         levelWordData[3].push(item);
         break;
       default:
+        item.show ? (allFinishedNumber += 1) : 1;
         levelWordData[0].push(item);
         break;
     }
@@ -105,43 +113,90 @@
 
   let nowData = levelWordData[0]; //当前使用的数据
   let levelFlag = -1;
+  let textColor = 'text-orange-300';
+  let fillColor = 'fill-orange-300';
   let underlineColor = 'decoration-orange-300'; //标题下划线颜色
   let wordTitle = '涉及词汇';
-  $: useWordNumber = nowData.length;
+  let resetInfo = '';
   $: length_0 = levelWordData[0].length;
   $: length_1 = levelWordData[1].length;
   $: length_2 = levelWordData[2].length;
   $: length_3 = levelWordData[3].length;
 
-  // 重置所有的单词等级
-  function handleReset() {
+  // 重置所有的单词的分类情况
+  function handleResetLevel() {
     levelWordData = [[], [], [], []];
-    // 重置所有的数据
-    blog.englishWordData.map((item) => {
+    englishWordData.map((item) => {
       item.show = 0;
       item.level = 1;
       levelWordData[0].push(item);
     });
     nowData = levelWordData[0];
     allFinishedNumber = 0;
+    textColor = 'text-orange-300';
+    fillColor = 'fill-orange-300';
     underlineColor = 'decoration-orange-300';
     levelFlag = 0;
     wordTitle = '涉及词汇';
+    resetInfo = '';
   }
+
+  // 重置所有的单词掌握情况
+  function handleResetWord() {
+    englishWordData.map((item) => {
+      item.show = 0;
+    });
+    nowData = nowData;
+    allFinishedNumber = 0;
+    resetInfo = '';
+  }
+
+  // 保存设置
+  async function saveReset() {
+    const res = await fetch(
+      BASE_URL + '/english-word-data-jsons/' + blog.attributes.englishWord.data.id,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            englishWordData: englishWordData,
+          },
+        }),
+      },
+    );
+    if (!res.ok) {
+      resetInfo = '保存失败';
+    } else {
+      resetInfo = '保存成功';
+    }
+  }
+
   // 按等级排列
   function handleLevel(levelNum) {
     nowData = levelWordData[levelNum];
     if (levelNum == 0) {
       wordTitle = '未分类词汇';
+      textColor = 'text-orange-300';
+      fillColor = 'fill-orange-300';
       underlineColor = 'decoration-orange-300';
     } else if (levelNum == 1) {
       wordTitle = '简单词汇';
+      textColor = 'text-green-300';
+      fillColor = 'fill-green-300';
       underlineColor = 'decoration-green-300';
     } else if (levelNum == 2) {
       wordTitle = '中等词汇';
+      textColor = 'text-sky-300';
+      fillColor = 'fill-sky-300';
       underlineColor = 'decoration-sky-300';
     } else if (levelNum == 3) {
       wordTitle = '困难词汇';
+      textColor = 'text-indigo-300';
+      fillColor = 'fill-indigo-300';
       underlineColor = 'decoration-indigo-300';
     }
     levelFlag = levelNum;
@@ -153,7 +208,6 @@
     //添加到改变的级别数据中
     let newData = tempData;
     levelWordData[changeLevel].push(newData);
-    useWordNumber = nowData.length - 1;
     //移除当前级别数据
     levelWordData[levelFlag].splice(dataIndex, 1);
     nowData = levelWordData[levelFlag];
@@ -206,7 +260,7 @@
           class="prose prose-slate mt-12 dark:prose-invert font-article 
           prose-p:mb-0 prose-p:mt-0 
           prose-a:text-blue-600 hover:prose-a:text-blue-500 
-          prose-strong:text-orange-400
+          prose-strong:text-indigo-400 dark:prose-strong:text-indigo-500
            prose-code:rounded-md  
            prose-pre:mb-2  prose-pre:mt-2 dark:prose-pre:bg-gray-900 prose-pre:bg-gray-600 prose-pre:shadow-xl
            prose-hr:mb-2
@@ -218,6 +272,67 @@
 
           <h3 class="text-center">{wordTitle}</h3>
           <hr />
+          <div class="flex flex-wrap place-content-center gap-4 mb-4">
+            <!-- 重置分类等级 -->
+            <button
+              class="btn btn-xs sm:btn-sm bg-purple-300 dark:bg-purple-400 hover:bg-purple-500 font-article border-none"
+              on:click={() => {
+                resetInfo = '确定要重置目前的单词等级分类吗？';
+              }}><p>重置单词分级</p></button>
+            <!-- 重置掌握单词 -->
+            <button
+              class="btn btn-xs sm:btn-sm bg-purple-300 dark:bg-purple-400 hover:bg-purple-500 font-article border-none"
+              on:click={() => {
+                resetInfo = '确定要重置目前掌握的单词吗?';
+              }}><p>重置掌握单词</p></button>
+            <!-- 保存记录 -->
+            <button
+              class="btn btn-xs sm:btn-sm bg-purple-300 dark:bg-purple-400 hover:bg-purple-500 font-article border-none"
+              on:click={saveReset}><p>保存</p></button>
+          </div>
+          {#if resetInfo}
+            <div class="alert rounded-xl shadow-md mb-4 dark:bg-gray-800">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  class="stroke-info flex-shrink-0 w-6 h-6"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>{resetInfo}</span>
+              </div>
+              <div class="flex-none">
+                {#if resetInfo === '保存成功' || resetInfo === '保存失败'}
+                  <button
+                    on:click={() => {
+                      resetInfo = '';
+                    }}
+                    class="btn btn-sm bg-purple-300 dark:bg-purple-400 hover:bg-purple-500  border-none"
+                    >了解</button>
+                {:else}
+                  <button
+                    on:click={() => {
+                      if (resetInfo === '确定要重置目前掌握的单词吗?') {
+                        handleResetWord();
+                      } else {
+                        handleResetLevel();
+                      }
+                    }}
+                    class="btn btn-sm btn-ghost">确定</button>
+                  <button
+                    on:click={() => {
+                      resetInfo = '';
+                    }}
+                    class="btn btn-sm bg-purple-300 dark:bg-purple-400 hover:bg-purple-500  border-none"
+                    >拒绝</button>
+                {/if}
+              </div>
+            </div>
+          {/if}
           <div class="flex flex-wrap place-content-center gap-4 mb-4">
             <button
               class="btn btn-xs sm:btn-sm bg-orange-300 dark:bg-orange-400 hover:bg-orange-500 font-article border-none"
@@ -239,9 +354,6 @@
               on:click={() => {
                 handleLevel(3);
               }}><p>困难({length_3})</p></button>
-            <button
-              class="btn btn-xs sm:btn-sm bg-red-300 dark:bg-red-400  hover:bg-red-500 font-article border-none"
-              on:click={handleReset}><p>重置</p></button>
           </div>
 
           <!-- 数据里面的内容 -->
@@ -274,7 +386,7 @@
                     <svg
                       t="1655481586518"
                       on:click={handleSpeak(data.headWord)}
-                      class=" fill-gray-400 hover:fill-orange-500 mr-2"
+                      class=" fill-gray-300 {fillColor} mr-2"
                       viewBox="0 0 1024 1024"
                       version="1.1"
                       xmlns="http://www.w3.org/2000/svg"
@@ -296,7 +408,11 @@
                   </div>
                   <!-- headTrans -->
                   {#each data.headTrans as headTran}
-                    <p class="ml-2"><strong>{headTran.pos}</strong>. {headTran.trans}</p>
+                    <p class="ml-2">
+                      <span class="{textColor} font-article font-bold"
+                        >{headTran.pos}.
+                      </span>{headTran.trans}
+                    </p>
                   {/each}
                   <!-- example -->
                   {#if data.example.length > 0}
@@ -337,7 +453,7 @@
 
           <!-- 学完后的打卡 -->
           <div
-            class="not-prose p-4 mt-4 sm:mr-4 font-body bg-gray-300 dark:bg-gray-800 rounded-xl dark:text-white">
+            class="not-prose shadow-md p-4 mt-4 font-body bg-gray-100 dark:bg-gray-800 rounded-xl dark:text-white">
             {#if allFinishedNumber == englishWordDataNumber}
               <p class="text-md mb-2 font-bold">今日英语单词打卡已完成👍</p>
               <p class="text-sm mb-2 font-thin underline underline-offset-2 decoration-yellow-400">

@@ -104,8 +104,6 @@
       { name: 'Current Blog', url: '' },
     ];
   }
-
-
 </script>
 
 <svelte:head>
@@ -158,7 +156,7 @@
           class="prose prose-slate mt-12 dark:prose-invert font-article 
           prose-p:mb-0 prose-p:mt-0 
           prose-a:text-blue-600 hover:prose-a:text-blue-500 
-          prose-strong:text-orange-400
+          prose-strong:text-indigo-400 dark:prose-strong:text-indigo-500
            prose-code:rounded-md  prose-code:bg-gray-300 dark:prose-code:bg-gray-700
            prose-pre:mb-2 prose-pre:p-0 prose-pre:mt-2 prose-pre:bg-inherit
            prose-hr:mb-2

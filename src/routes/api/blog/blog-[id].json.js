@@ -20,15 +20,6 @@ export async function get(request) {
     blog.authorAvatar = BASE + tempResponse.data.attributes.avatar.data.attributes.formats.small.url;
 
 
-    // 如果有file，则获取file
-    if (blog.attributes.englishWordFile.data) {
-        let fileUrl = BASE + blog.attributes.englishWordFile.data[0].attributes.url;
-        await fetch(fileUrl)
-            .then(response => response.json())
-            .then(data => {
-                blog.englishWordData = data;
-            })
-    }
     return {
         status: 200,
         body: blog,
