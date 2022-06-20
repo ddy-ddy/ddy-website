@@ -208,7 +208,7 @@
           prose-a:text-blue-600 hover:prose-a:text-blue-500 
           prose-strong:text-orange-400
            prose-code:rounded-md  
-           prose-pre:mb-2  prose-pre:mt-2 prose-pre:max-h-40 sm:prose-pre:max-h-48 dark:prose-pre:bg-gray-900 prose-pre:bg-gray-600 prose-pre:shadow-xl
+           prose-pre:mb-2  prose-pre:mt-2 dark:prose-pre:bg-gray-900 prose-pre:bg-gray-600 prose-pre:shadow-xl
            prose-hr:mb-2
            prose-headings:text-slate-900 prose-headings:dark:text-slate-200 prose-headings:mb-2
            prose-p:text-slate-900 prose-p:dark:text-slate-200
