@@ -160,7 +160,7 @@
           prose-a:text-blue-600 hover:prose-a:text-blue-500 
           prose-strong:text-orange-400
            prose-code:rounded-md  prose-code:bg-gray-300 dark:prose-code:bg-gray-700
-           prose-pre:mb-2 prose-pre:p-0 prose-pre:mt-2 prose-pre:max-h-36 sm:prose-pre:max-h-48 prose-pre:bg-inherit
+           prose-pre:mb-2 prose-pre:p-0 prose-pre:mt-2 prose-pre:bg-inherit
            prose-hr:mb-2
            prose-h3:mb-1
            prose-img:rounded-md prose-img:mb-2 prose-img:mt-2">
