@@ -218,7 +218,7 @@
 
           <h3 class="text-center">{wordTitle}</h3>
           <hr />
-          <div class="flex place-content-center gap-4 mb-4">
+          <div class="flex flex-wrap place-content-center gap-4 mb-4">
             <button
               class="btn btn-xs sm:btn-sm bg-orange-300 dark:bg-orange-400 hover:bg-orange-500 font-article border-none"
               on:click={() => {
