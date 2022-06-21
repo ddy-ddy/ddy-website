@@ -10,7 +10,7 @@ export function JudgeHorizontal(height, width) {
 }
 
 // 截取字符串长度
-export function splitString(info,len) {
+export function splitString(info, len) {
     if (info == null) {
         info = "...";
     }
@@ -19,4 +19,22 @@ export function splitString(info,len) {
         info = info + "...";
     }
     return info;
+}
+
+//获取当前时间
+export function getDate() {
+    var today = new Date();
+    var date =
+        today.getFullYear() +
+        '-' +
+        (today.getMonth() + 1) +
+        '-' +
+        today.getDate() +
+        ' ' +
+        today.getHours() +
+        ':' +
+        today.getMinutes() +
+        ':' +
+        today.getSeconds();
+    return date;
 }
