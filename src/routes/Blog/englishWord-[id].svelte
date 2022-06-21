@@ -2,7 +2,7 @@
   /*
    * @Author: Yu Duan 1179730251@qq.com
    * @Date: 2022-06-16 10:58:44
- * @LastEditTime: 2022-06-21 22:22:35
+ * @LastEditTime: 2022-06-21 23:18:13
    * @Github: https://github.com/ddy-ddy
    * @Website: https://ddy-ddy.com
    */
@@ -262,7 +262,8 @@
             </ul>
           </div>
         </header>
-        <!-- 文章内容 -->
+
+        <!-- 学习笔记(MarkDown) -->
         <div
           class="prose prose-slate mt-12 dark:prose-invert font-article 
                 prose-p:mb-0 prose-p:mt-0 
@@ -274,8 +275,21 @@
               prose-headings:text-slate-900 prose-headings:dark:text-slate-200 prose-headings:mb-2
               prose-p:text-slate-900 prose-p:dark:text-slate-200
                 prose-img:rounded-md prose-img:mb-2 prose-img:mt-2">
-          <!-- 自己写的内容 -->
-          <div>{@html html}</div>
+          {@html html}
+        </div>
+
+        <!-- 单词内容 -->
+        <div
+          class="prose prose-slate mt-12 dark:prose-invert font-article 
+                prose-p:mb-0 prose-p:mt-0 
+              prose-a:text-blue-600 hover:prose-a:text-blue-500 
+              prose-strong:text-indigo-400 dark:prose-strong:text-indigo-500
+                prose-code:rounded-md  
+                prose-pre:mb-2  prose-pre:mt-2 prose-pre:max-h-36 sm:prose-pre:max-h-48 dark:prose-pre:bg-gray-900 prose-pre:bg-gray-600 prose-pre:shadow-xl
+                prose-hr:mb-2
+              prose-headings:text-slate-900 prose-headings:dark:text-slate-200 prose-headings:mb-2
+              prose-p:text-slate-900 prose-p:dark:text-slate-200
+                prose-img:rounded-md prose-img:mb-2 prose-img:mt-2">
 
           <!-- 背单词相关的按钮以及消息提醒 -->
           <div>

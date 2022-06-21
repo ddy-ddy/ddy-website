@@ -2,8 +2,6 @@
 <script>
   import { personInformation } from '$lib/variables';
   import Typewriter from 'svelte-typewriter';
-  let name = 'world';
-  const action = (_) => (name = 'Enter');
 </script>
 
 
