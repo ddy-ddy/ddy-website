@@ -6,10 +6,6 @@
   const action = (_) => (name = 'Enter');
 </script>
 
-<input type="text" on:keyup={(e) => e.key === 'Enter' && action()} />
-<h1>
-  {name}
-</h1>
 
 <!-- 首页介绍 -->
 <section class="lg:py-24 2xl:py-48">
