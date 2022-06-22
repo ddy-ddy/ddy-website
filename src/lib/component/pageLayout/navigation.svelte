@@ -48,12 +48,12 @@
         </label>
         <ul
           tabindex="0"
-          class="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-34 bg-base-100 dark:bg-gray-800">
+          class="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-34 bg-slate-50 dark:bg-slate-800">
           {#each navTag as tag}
             {#if flag.includes(tag.name)}
               <li tabindex="0">
                 <a class={navClass} href={tag.url}> {tag.name}</a>
-                <ul class="p-2 bg-base-100 dark:bg-gray-800">
+                <ul class="p-2 bg-slate-50 dark:bg-slate-800">
                   {#each tag.nextInfo as tempInfo}
                     <li>
                       <a class={navClass} href={tempInfo.url}>{tempInfo.name}</a>
@@ -113,9 +113,9 @@
           {#if flag.includes(tag.name)}
             <li tabindex="0" class="hidden lg:flex">
               <p class={navClass}>{tag.name}</p>
-              <ul class=" bg-gray-50 dark:bg-gray-800 rounded-md">
+              <ul class=" bg-slate-50 dark:bg-slate-800 rounded-md">
                 {#each tag.nextInfo as tempInfo}
-                  <li class="hover:bg-gray-100 dark:hover:bg-gray-500 rounded-md">
+                  <li>
                     <a class={navClass} href={tempInfo.url}>{tempInfo.name}</a>
                   </li>
                 {/each}

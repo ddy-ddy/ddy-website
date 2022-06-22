@@ -137,10 +137,12 @@
 {:else if categories}
   <ul class="mt-6 grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-y-10">
     {#each categories as category}
-      <li class="flex items-start hover:bg-slate-200 dark:hover:bg-slate-800/50 rounded-xl py-4 pl-2">
+      <li
+        class="flex items-start hover:bg-slate-200 dark:hover:bg-slate-800/50 rounded-xl py-4 pl-2">
         <div>
           <img
-            class="w-16 h-16 p-[0.2875rem]  rounded-lg ring-2 ring-orange-500  shadow"
+            alt="category's avatar"
+            class="w-16 h-16 p-[0.2875rem]  rounded-lg ring-2 ring-orange-500 dark:ring-orange-700 shadow"
             src={category.avatar} />
         </div>
         <div class="ml-4">
