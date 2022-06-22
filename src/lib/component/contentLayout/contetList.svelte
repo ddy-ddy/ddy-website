@@ -6,8 +6,9 @@
   export let blogs = false;
   export let categories = false;
   export let searchFlag = false;
+  export let categoryID;
   function handleBlogTheme(content) {
-    let addFlag = searchFlag ? '?1' : '';
+    let addFlag = searchFlag ? '?' + categoryID : '';
     if (content.blogTheme === 'blog') {
       return `/Blog/blog-${content.id}${addFlag}`;
     } else if (content.blogTheme === 'englishWord') {
@@ -134,46 +135,38 @@
 
   <!-- all blog categories page -->
 {:else if categories}
-  {#each categories as category}
-    <article class="relative group">
-      <div
-        class="absolute -inset-y-2.5 -inset-x-4 md:-inset-y-4 md:-inset-x-6 sm:rounded-2xl group-hover:bg-slate-200 dark:group-hover:bg-slate-800/50" />
-      <svg
-        viewBox="0 0 9 9"
-        class="hidden absolute right-full mr-6 top-2 text-slate-200 dark:text-slate-600 md:mr-12 w-[calc(0.5rem+1px)] h-[calc(0.5rem+1px)] overflow-visible sm:block"
-        ><circle
-          cx="4.5"
-          cy="4.5"
-          r="4.5"
-          stroke="currentColor"
-          class="fill-white dark:fill-slate-900"
-          stroke-width="2" /></svg>
-      <div class="relative">
-        <h3
-          class="text-base underline underline-offset-4 decoration-indigo-500 font-display font-semibold tracking-tight text-slate-900 dark:text-slate-200 pt-8 lg:pt-0">
-          {category.title} ({category.blogNumber})
-        </h3>
-        <div
-          class="mt-2 mb-4 prose prose-slate prose-a:relative prose-a:z-10 dark:prose-dark line-clamp-2 dark:text-slate-400">
-          <p class="font-body">
-            {category.description}
-          </p>
+  <ul class="mt-6 grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-y-10">
+    {#each categories as category}
+      <li class="flex items-start hover:bg-slate-200 dark:hover:bg-slate-800/50 rounded-xl py-4 pl-2">
+        <div>
+          <img
+            class="w-16 h-16 p-[0.2875rem]  rounded-lg ring-2 ring-orange-500  shadow"
+            src={category.avatar} />
         </div>
-      </div>
-      <a
-        class="flex items-center text-sm text-sky-500 font-medium"
-        href="/Blog/category-{category.id}"
-        ><span class="relative"><p class="font-body">查看相关博客</p></span><svg
-          class="relative mt-px overflow-visible ml-2.5 text-sky-300 dark:text-sky-700"
-          width="3"
-          height="6"
-          viewBox="0 0 3 6"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"><path d="M0 0L3 3L0 6" /></svg
-        ></a>
-    </article>
-  {/each}
+        <div class="ml-4">
+          <h3
+            class="text-base underline underline-offset-4 decoration-indigo-500 font-display font-semibold tracking-tight text-slate-900 dark:text-slate-200">
+            <a href="/Blog/category-{category.id}"
+              >{category.title} ({category.blogNumber})<svg
+                viewBox="0 0 3 6"
+                class="ml-3 w-auto h-1.5 overflow-visible inline -mt-px text-slate-400 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100"
+                ><path
+                  d="M0 0L3 3L0 6"
+                  fill="none"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" /></svg
+              ></a>
+          </h3>
+          <div
+            class="mt-2  prose prose-slate prose-a:relative prose-a:z-10 dark:prose-dark dark:text-slate-400">
+            <p class="font-body font-normal text-md">
+              {category.description}
+            </p>
+          </div>
+        </div>
+      </li>
+    {/each}
+  </ul>
 {/if}

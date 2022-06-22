@@ -32,6 +32,6 @@
 <section>
   <Breadcrumb info={breadcrumbInfo} />
   <TimeLinePage pageInfo={pageInfo}>
-    <ContetList blogs={categoryBlogs} searchFlag={true} />
+    <ContetList blogs={categoryBlogs} searchFlag={true} categoryID={categoryInfo.id} />
   </TimeLinePage>
 </section>

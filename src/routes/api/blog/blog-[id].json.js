@@ -1,3 +1,10 @@
+/*
+ * @Author: Yu Duan 1179730251@qq.com
+ * @Date: 2022-05-17 20:24:13
+ * @LastEditTime: 2022-06-22 22:44:01
+ * @Github: https://github.com/ddy-ddy
+ * @Website: https://ddy-ddy.com
+ */
 import { BASE_URL, BASE } from "$lib/variables";
 
 
@@ -17,7 +24,12 @@ export async function get(request) {
     // 获取作者的头像
     const tempRes = await fetch(`${BASE_URL}/authors/${blog.attributes.author.data.id}?populate=*`);
     const tempResponse = await tempRes.json();
-    blog.authorAvatar = BASE + tempResponse.data.attributes.avatar.data.attributes.formats.small.url;
+    if (tempResponse.data.attributes.avatar.data.attributes.formats) { //判断图像是否有小尺寸的，有就用小尺寸的
+        blog.authorAvatar = BASE + tempResponse.data.attributes.avatar.data.attributes.formats.small.url;
+    } else {
+        blog.authorAvatar = BASE + tempResponse.data.attributes.avatar.data.attributes.url;
+
+    }
 
 
     return {
