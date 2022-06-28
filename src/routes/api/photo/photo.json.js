@@ -3,7 +3,7 @@ import { JudgeHorizontal, splitString } from "$lib/function";
 
 
 export async function get() {
-    const res = await fetch(`${BASE_URL}/photographies?populate=*`);
+    const res = await fetch(`${BASE_URL}/photographies?sort[0]=publishedAt:DESC&populate=*`);
     const response = await res.json();
     const photographies = response["data"];
     photographies.map((photography) => {

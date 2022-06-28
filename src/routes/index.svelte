@@ -2,8 +2,10 @@
 <script>
   import { personInformation } from '$lib/variables';
   import Typewriter from 'svelte-typewriter';
+  import Search from '$lib/component/contentLayout/search.svelte';
 </script>
 
+<!-- <Search /> -->
 
 <!-- 首页介绍 -->
 <section class="lg:py-24 2xl:py-48">

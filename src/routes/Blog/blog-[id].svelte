@@ -137,7 +137,7 @@
                 <img
                   src={blog.authorAvatar}
                   alt=""
-                  class="mr-3 w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800" />
+                  class="mr-3 w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800  shadow-xl" />
                 <div class="text-sm leading-4">
                   <div class="text-slate-900 dark:text-slate-200 font-body">{blog.author}</div>
                   <div class="mt-1">
@@ -168,7 +168,10 @@
         <div
           class=" fixed z-20 top-[12.8125rem] bottom-4 h-96 right-[max(0px,calc(50%-45rem))] w-[19.5rem] py-10 overflow-y-auto hidden xl:block">
           <ul class="text-slate-700 text-sm leading-6 font-body">
-            <h3 class="font-body font-bold text-lg mb-4 underline underline-offset-2 decoration-orange-400">目录</h3>
+            <h3
+              class="font-body font-bold text-lg mb-4 underline underline-offset-2 decoration-orange-400">
+              目录
+            </h3>
             {#each markdownNavgation as info}
               <!--一级目录 -->
               <li>

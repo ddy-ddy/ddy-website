@@ -142,7 +142,7 @@
         <div>
           <img
             alt="category's avatar"
-            class="w-16 h-16 p-[0.2875rem]  rounded-lg ring-2 ring-orange-500 dark:ring-orange-700 shadow"
+            class="w-12 h-12 p-[0.2875rem]  rounded-lg ring-2 ring-orange-500 dark:ring-orange-700 shadow"
             src={category.avatar} />
         </div>
         <div class="ml-4">

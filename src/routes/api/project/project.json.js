@@ -1,3 +1,10 @@
+/*
+ * @Author: Yu Duan 1179730251@qq.com
+ * @Date: 2022-06-09 20:16:19
+ * @LastEditTime: 2022-06-25 22:46:29
+ * @Github: https://github.com/ddy-ddy
+ * @Website: https://ddy-ddy.com
+ */
 import { BASE_URL } from "$lib/variables";
 
 function splitString(info) {

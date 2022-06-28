@@ -26,6 +26,7 @@
   "dependencies": {
     "daisyui": "^2.14.3",
     "highlight.js": "^11.5.1",
+    "meilisearch": "^0.25.1",
     "qs": "^6.10.3",
     "showdown": "^1.9.1",
     "showdown-toc": "1.0.1"

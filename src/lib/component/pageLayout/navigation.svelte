@@ -42,7 +42,7 @@
         <!-- 导航栏头像 -->
         <!-- svelte-ignore a11y-label-has-associated-control -->
         <label tabindex="0" class="btn btn-ghost btn-circle avatar online">
-          <div class="w-10 rounded-full">
+          <div class="w-10 rounded-full  p-0.5">
             <img src="/img/logo.svg" alt="logo" />
           </div>
         </label>
