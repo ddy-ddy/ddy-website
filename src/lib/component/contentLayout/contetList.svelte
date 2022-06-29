@@ -9,10 +9,10 @@
   export let categoryID;
   function handleBlogTheme(content) {
     let addFlag = searchFlag ? '?' + categoryID : '';
-    if (content.blogTheme === 'blog') {
-      return `/Blog/blog-${content.id}${addFlag}`;
-    } else if (content.blogTheme === 'englishWord') {
+    if (content.blogTheme === 'englishWord') {
       return `/Blog/englishWord-${content.id}${addFlag}`;
+    } else {
+      return `/Blog/blog-${content.id}${addFlag}`;
     }
   }
 </script>
