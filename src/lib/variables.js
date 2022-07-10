@@ -1,15 +1,15 @@
 /*
  * @Author: Yu Duan 1179730251@qq.com
  * @Date: 2022-05-17 20:18:57
- * @LastEditTime: 2022-06-25 22:57:28
+ * @LastEditTime: 2022-07-10 22:57:36
  * @Github: https://github.com/ddy-ddy
  * @Website: https://ddy-ddy.com
  */
 // 存放变量，路径等
 
 //strapi url
-export const BASE_URL = 'http://121.4.85.24:1337/api';
-export const BASE = 'http://121.4.85.24:1337';
+export const BASE_URL = 'https://www.ddy-backend.xyz/api';
+export const BASE = 'https://www.ddy-backend.xyz';
 
 //MeiliSearch url
 export const MeiliSearch_URL = 'http://121.4.85.24:7700';
