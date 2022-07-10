@@ -2,7 +2,7 @@
   导航栏 
 -->
 <script>
-  import { navTag } from '$lib/variables';
+  import { BASE, navTag } from '$lib/variables';
   //判断是否要下拉框
   let flag = ['Blog', 'Photo'];
   // 判断是否要search栏
@@ -68,8 +68,7 @@
             {/if}
           {/each}
           <li>
-            <a class={navClass} href="http://121.4.85.24:1337/admin/auth/login" target="_blank"
-              >Login</a>
+            <a class={navClass} href={BASE + '/admin/auth/login'} target="_blank">Login</a>
           </li>
         </ul>
       </div>
