@@ -1,4 +1,11 @@
-import { BASE_URL } from "$lib/variables";
+/*
+ * @Author: Yu Duan 1179730251@qq.com
+ * @Date: 2022-05-17 20:21:24
+ * @LastEditTime: 2022-07-11 23:06:13
+ * @Github: https://github.com/ddy-ddy
+ * @Website: https://ddy-ddy.com
+ */
+import { BASE_URL, BASE } from "$lib/variables";
 import { JudgeHorizontal, splitString } from "$lib/function";
 
 
@@ -9,7 +16,7 @@ export async function get() {
     photographies.map((photography) => {
         photography.shootTime = photography.attributes.shootTime;  //拍摄时间
         photography.title = photography.attributes.title; //文件标题
-        photography.image = "http://121.4.85.24:1337" + photography.attributes.image.data[0].attributes.formats.large.url;  //照片图像
+        photography.image = BASE + photography.attributes.image.data[0].attributes.formats.large.url;  //照片图像
         if (photography.attributes.author.data) {
             photography.author = photography.attributes.author.data.attributes.name;  //作者名
         } else {
