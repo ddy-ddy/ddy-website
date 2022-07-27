@@ -10,7 +10,7 @@
   <Breadcrumb info={breadcrumbInfo} />
   <div class="max-w-screen-xl mx-auto px-8 py-4 sm:px-32 lg:px-48">
     <p class="mt-4 font-bold text-xl dark:text-white">
-      Hello!
+      Hello! Welcome to my website! The website is still being updated.
     </p>
   </div>
 </sction>

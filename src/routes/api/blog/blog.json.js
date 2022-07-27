@@ -8,7 +8,7 @@
 import { BASE_URL } from "$lib/variables";
 
 export async function get() {
-    let res = await fetch(`${BASE_URL}/blogs?sort[0]=publishedAt:DESC&filters[blogTheme]=technologyBlog`)
+    let res = await fetch(`${BASE_URL}/blogs?sort[0]=publishedAt:DESC`)
     let response = await res.json();
     let blogs = response["data"];
     blogs.map((blog) => {
