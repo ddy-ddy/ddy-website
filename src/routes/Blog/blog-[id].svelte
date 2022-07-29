@@ -20,6 +20,8 @@
   import hljs from 'highlight.js/lib/core';
   import shell from 'highlight.js/lib/languages/shell';
   import javascript from 'highlight.js/lib/languages/javascript';
+  import html from 'highlight.js/lib/languages/vbscript-html';
+  import css from 'highlight.js/lib/languages/css';
   import python from 'highlight.js/lib/languages/python';
   import bash from 'highlight.js/lib/languages/bash';
   import codetheme from 'svelte-highlight/styles/github-dark-dimmed';
@@ -34,7 +36,7 @@
   Showdown.setOption('tasklists', true);
   var converter = new Showdown.Converter({ extensions: [ShowdownToc({ toc })] }),
     text = context,
-    html = converter.makeHtml(text);
+    result = converter.makeHtml(text);
 
   // 获取博客的目录
   let markdownNavgation = []; //博客的目录
@@ -81,7 +83,9 @@
   hljs.registerLanguage('bash', bash);
   hljs.registerLanguage('javascript', javascript);
   hljs.registerLanguage('python', python);
-  $: if (html) {
+  hljs.registerLanguage('html', python);
+  hljs.registerLanguage('css', python);
+  $: if (result) {
     afterUpdate(() => {
       if (document !== undefined) {
         hljs.highlightAll();
@@ -162,7 +166,7 @@
            prose-hr:mb-2
            prose-h3:mb-1
            prose-img:rounded-md prose-img:mb-2 prose-img:mt-2">
-          {@html html}
+          {@html result}
         </div>
         <!-- 文章右侧目录 -->
         <div
